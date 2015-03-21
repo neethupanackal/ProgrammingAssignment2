@@ -3,9 +3,22 @@
 
 ## Write a short comment describing this function
 
-## Check commit
 
 makeCacheMatrix <- function(x = matrix()) {
+    matinv <- NULL
+    set <- function(y) {
+        x <<- y
+        matinv <<- NULL
+    }
+    get <- function() x
+    
+    setinv <- function(inv) matinv <<- inv
+    
+    getinv <- function() matinv
+  
+    list(set = set, get = get,
+       setinv = setinv,
+       getinv = getinv)
 
 }
 
