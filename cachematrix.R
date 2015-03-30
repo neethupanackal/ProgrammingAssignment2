@@ -28,13 +28,33 @@ makeCacheMatrix <- function(x = matrix()) {
     ## Retuns a list of subfuntions 
     list(set = set, get = get,
        setinv = setinv,
-       getinv = getinv)
+       getinv =  getinv()
 
 }
 
 
-## Write a short comment describing this function
+## This function calculates and returns the inverse of a cacheable matrix. 
+## The input cacheable matrix is created by makeCacheMatrix .
+## If the inverse is already been calculated before, it retrieves from the cache.
+## Else, it calculates the inverse, saves it in the cache and returns the inverse
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+    
+    ## Gets the inverse from the cache.
+    matinv <- x$getinv()
+    
+    ## if inverse is not null, that means pre-calculated inverse is available
+    if(!is.null(matinv)) {
+        message("getting cached data")
+    }
+    ## Else, we do not have pre calculated inverse.
+    ## Calculate the inverse using solve function and Set it in the cache.
+    else { 
+        matdata <- x$get()
+        matinv <- solve(matdata, ...)
+        x$setinv(matinv)
+    }
+    
+    return(matinv)
 }
+
